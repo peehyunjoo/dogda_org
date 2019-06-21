@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+    <meta name="autocomplete" content="off">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="no">
+    <meta name="apple-touch-fullscreen" content="YES">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
+    <style>
+        body{
+            margin : 0px;
+            padding : 0px;
+         }
+        .ham{
+            color:black;
+            margin-top : 0.2em;
+        }
+        .nav{
+            background-color:#A9F5F2;
+            height: 50px;
+        }
+        span{
+            position: absolute;
+            left: 42%;
+            top: 0.3em;
+            font-weight: 500;
+            font-size: 20px;
+        }
+        .hidden_menu{
+            position:absolute;
+            width : 200px;
+            background-color : #A9F5F2;
+            left : -200px;
+            top : 0;
+            height : 100vh;
+        }
+        .hidden_menu ul li{
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 20px;
+            border-top: 1px solid #dfdfdf;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            $(".ham").click(function(){
+                $(".hidden_menu").animate({left:0}, 400);
+                $(".container").css("background-color","#A9F5F2");
+            });
+            $(".ham_close").click(function(){
+                $(".hidden_menu").animate({left:-200}, 400);
+            });
+        });
+    </script>
+<body>
+
+    <div class="wrap">
+        <div class="nav">
+          <i class="fas fa-bars fa-2x ham"></i>
+            <span>DOGDA</span>
+        </div>
+    </div>
+    <div class="hidden_menu">
+        <i class="fas fa-times fa-2x ham_close"></i>
+        <ul>
+				<li>
+					<p class="tit">test1</p>
+				</li>
+				<li>
+					<p class="tit">test2</p>
+				</li>
+				<li>
+					<p class="tit">test3</p>
+				</li>
+				<li>
+					<p class="tit">test4</p>
+				</li>
+			</ul>
+    </div>
+    {% block content %}{% endblock %}
+</body>
+</html>
