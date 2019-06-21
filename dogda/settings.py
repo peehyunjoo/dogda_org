@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'j4b=r!q-kz5vyz%s)z8p59r76&x@xwjwo&u@3+7i$4v1&$s=_2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhosts', '127.0.0.1']
 
 
 # Application definition
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'oauth.apps.OauthConfig',
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [
@@ -118,3 +120,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGGING = {
+    'version':1,
+    'disable_existing_loggers':False,
+    'handlers':{
+        'file':{
+            'level':'DEBUG',
+            'class':'logging.FileHandler',
+            'filename':'debug.log',
+        },
+    },
+    'loggers':{
+        'django':{
+            'handlers':['file'],
+            'level':'DEBUG',
+            'propagate':True,
+        },
+    },
+}
