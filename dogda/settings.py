@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'oauth.apps.OauthConfig',
+    'info.apps.InfoConfig',
     'bootstrap4'
 ]
 

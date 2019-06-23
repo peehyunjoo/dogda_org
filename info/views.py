@@ -1,7 +1,8 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 import requests
 # Create your views here.
 
-#메인
+#정보
 def index(request):
-    return render(request, 'oauth/oauth.html')
+    return render(request, 'info/info.html')

@@ -13,8 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-
-
+    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
     <style>
         body{
             margin : 0px;
@@ -42,14 +41,39 @@
             left : -200px;
             top : 0;
             height : 100vh;
+            z-index:100;
+        }
+        ham_close ul{
+            margin-top :20px;
+            list-style: none;
+            left: 0;
+            position: absolute;
         }
         .hidden_menu ul li{
             position: relative;
             width: 100%;
             box-sizing: border-box;
-            padding: 20px;
-            border-top: 1px solid #dfdfdf;
+            padding: 3px;
+            border-bottom: 1px solid black;
+            list-style:none;
         }
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                max-width: none;
+            }
+        }
+        .card{
+            position: relative;
+            margin: 0 auto;
+            margin-top: 30%;
+        }
+        .info{
+            margin-top : 30%;
+        }
+         a:link { color: #0081cb; text-decoration: none;}
+         a:visited { color: black; text-decoration: none;}
+         a:hover { color: #0081cb; text-decoration: none;}
     </style>
     <script>
         $(document).ready(function(){
@@ -74,16 +98,16 @@
         <i class="fas fa-times fa-2x ham_close"></i>
         <ul>
 				<li>
-					<p class="tit">test1</p>
+                    <a href="/info"><p class="tit">애견정보</p></a>
 				</li>
 				<li>
-					<p class="tit">test2</p>
+					<p class="tit">애견접종리스트</p>
 				</li>
 				<li>
-					<p class="tit">test3</p>
+					<p class="tit">애견일기</p>
 				</li>
 				<li>
-					<p class="tit">test4</p>
+					<p class="tit">Q&A</p>
 				</li>
 			</ul>
     </div>
