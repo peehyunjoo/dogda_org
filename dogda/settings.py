@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-import django_heroku
+#import django_heroku       //debug.log를 할려면 헤로쿠 자체를 빼야 debug.log가 생김!
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -28,8 +28,8 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '(j4b=r!q-kz5vyz%s)z8p59r76&x@x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhosts', '127.0.0.1','.herokuapp.com']
-
+#ALLOWED_HOSTS = ['localhost','127.0.0.1','herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Application definition
 
@@ -133,6 +133,7 @@ LOGGING = {
             'level':'DEBUG',
             'class':'logging.FileHandler',
             'filename':'debug.log',
+            #'filename':'../myLog.log'
         },
     },
     'loggers':{
@@ -144,4 +145,4 @@ LOGGING = {
     },
 }
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
