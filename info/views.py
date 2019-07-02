@@ -9,13 +9,21 @@ import logging
 import requests
 from django.views.decorators.csrf import csrf_exempt
 
-from .forms import Dogda_infoForm
-from .models import dogda_info
+from .models import dogda_vaccination_info, dogda_info
+from .forms import Dogda_infoForm,Dogda_vaccination_infoForm
+
 # Create your views here.
 
 #애견 정보
 def index(request):
-    return render(request, 'info/info.html')
+    dogda_info_list = dogda_info.objects.filter(id='pizzu').values()
+
+    print(dogda_info_list)
+
+    data = {
+        'list' : dogda_info_list
+    }
+    return render(request, 'info/info.html' , data)
 
 #애견 정보 등록 form
 @csrf_exempt
@@ -41,3 +49,42 @@ def info_form(request):
         logger = logging.getLogger('')
         logger.error('로그찍기')
         return render(request, 'info/info_form.html')
+
+#백신 정보
+def vaccination_info(request):
+    vaccination_info_list = dogda_vaccination_info.objects.filter(id='pizzu').values()
+
+    print(vaccination_info_list)
+    data = {
+        'list': vaccination_info_list
+    }
+    print(data)
+
+    return render(request, 'info/vaccination_info.html', data)
+
+
+#백신 정보 등록 from
+@csrf_exempt
+def vaccination_info_form(request):
+
+    if request.method == "POST":
+
+        date = DateFormat(datetime.now()).format('Y-m-d')  # 오늘 날짜만 가져오기
+
+        vaccination_date = request.POST.get("vaccination_date")
+
+        vaccination_date = vaccination_date.replace("-", "")
+        dict = request.POST.dict()
+        dict["reg_date"] = date
+        dict["vaccination_date"] = vaccination_date
+
+        print(dict)
+
+        form = Dogda_vaccination_infoForm(dict)
+
+        if form.is_valid():
+            dogda_vaccination = form.save(commit=False)
+            dogda_vaccination.save()
+            return render(request, 'info/vaccination_info.html')
+    else:
+        return render(request, 'info/vaccination_info_form.html')

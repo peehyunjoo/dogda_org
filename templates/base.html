@@ -14,6 +14,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     <style>
         body{
             margin : 0px;
@@ -83,6 +86,10 @@
             border-color: #CEE3F6;
             background-color:#CEE3F6;
         }
+        .btn-primary:hover{
+            background-color : #CEE3F6;
+            border-color : #CEE3F6;
+        }
     </style>
     <script>
         $(document).ready(function(){
@@ -98,6 +105,7 @@
               $(this).attr("checked",true);
               $("input[name='radio']").not($(this)).attr("checked",false);
             });
+
         });
     </script>
 <body>
@@ -115,7 +123,7 @@
                     <a href="/info"><p class="tit">애견정보</p></a>
 				</li>
 				<li>
-					<p class="tit">애견접종리스트</p>
+                    <a href="/info/vaccination_info"><p class="tit">애견접종리스트</p></a>
 				</li>
 				<li>
 					<p class="tit">애견일기</p>

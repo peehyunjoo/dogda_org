@@ -3,17 +3,16 @@
 <!-- base html 틀 안에 들어갈 내용 -->
 {% block content %}
     <div class="plus_button">
-        <a href="/info/info_form/"><i class="fas fa-plus fa-2x"></i></a>
+        <a href="/info/vaccination_info_form/"><i class="fas fa-plus fa-2x"></i></a>
     </div>
     <div class="container info">
         <table class="table" style="font-size:10px;">
           <thead class="thead-dark">
             <tr>
               <th scope="col">id</th>
-              <th scope="col">이름</th>
-              <th scope="col">생일</th>
-              <th scope="col">성별</th>
-              <th scope="col">종류</th>
+              <th scope="col">애견이름</th>
+              <th scope="col">접종종류</th>
+              <th scope="col">접종날짜</th>
             </tr>
           </thead>
           <tbody>
@@ -21,9 +20,8 @@
             <tr>
               <th scope="row">{{ data.id }}</th>
               <td>{{ data.dogda_name }}</td>
-              <td>{{ data.dogda_birth }}</td>
-              <td>{{ data.dogda_gender }}</td>
-              <td>{{ data.dogda_type }}</td>
+              <td>{{ data.type }}</td>
+              <td>{{ data.vaccination_date }}</td>
             </tr>
           {% endfor %}
           </tbody>
