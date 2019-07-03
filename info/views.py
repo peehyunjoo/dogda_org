@@ -9,8 +9,8 @@ import logging
 import requests
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import dogda_vaccination_info, dogda_info
-from .forms import Dogda_infoForm,Dogda_vaccination_infoForm
+from .models import dogda_vaccination_info, dogda_info, notice
+from .forms import Dogda_infoForm,Dogda_vaccination_infoForm, noticeForm
 
 # Create your views here.
 
@@ -42,7 +42,7 @@ def info_form(request):
         if form.is_valid():
             dogda_info = form.save(commit=False)
             dogda_info.save()
-            return render(request, 'info/info.html')
+            return HttpResponseRedirect("/info")
 
     else:
 
@@ -63,7 +63,7 @@ def vaccination_info(request):
     return render(request, 'info/vaccination_info.html', data)
 
 
-#백신 정보 등록 from
+#백신 정보 등록 form
 @csrf_exempt
 def vaccination_info_form(request):
 
@@ -85,6 +85,28 @@ def vaccination_info_form(request):
         if form.is_valid():
             dogda_vaccination = form.save(commit=False)
             dogda_vaccination.save()
-            return render(request, 'info/vaccination_info.html')
+            return HttpResponseRedirect("/info/vaccination_info")
+
     else:
         return render(request, 'info/vaccination_info_form.html')
+
+def notice_list(request):       #모델과 view의 이름이 같으면 안되는것같음..
+    list = notice.objects.all()
+    print(list)
+    data = {
+        'list': list
+    }
+    return render(request, 'info/notice.html', data)
+
+@csrf_exempt
+def notice_form(request):
+
+    if request.method == "POST":
+
+        form = noticeForm(request.POST)
+        if form.is_valid():
+            notice = form.save(commit=False)
+            notice.save()
+            return HttpResponseRedirect("/info/notice")
+    else:
+        return render(request, 'info/notice_form.html')

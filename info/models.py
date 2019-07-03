@@ -26,9 +26,10 @@ class admin_member(models.Model):
 class notice(models.Model):
     idx = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
+    content = models.TextField()
 
     def __str__(self):
-        return self.idx + self.title
+        return self.title+self.content
 
 class dogda_info(models.Model):
     idx = models.AutoField(primary_key=True)

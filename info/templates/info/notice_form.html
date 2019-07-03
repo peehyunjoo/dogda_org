@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+<!-- base html 틀 안에 들어갈 내용 -->
+{% block content %}
+    <form action="/info/notice_form/" method="post">
+        {% csrf_token %}
+    <div class="container info">
+        <div class="form-group">
+            <label for="formGroupExampleInput">제목</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="제목">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">내용</label>
+            <input type="text" class="form-control" id="content" name="content" placeholder="내용">
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">등록</button>
+    </div>
+    </form>
+{% endblock content %}

@@ -1,5 +1,5 @@
 from django import forms
-from .models import dogda_info,dogda_vaccination_info
+from .models import dogda_info,dogda_vaccination_info,notice
 
 class Dogda_infoForm(forms.ModelForm):
     class Meta:
@@ -10,3 +10,10 @@ class Dogda_vaccination_infoForm(forms.ModelForm):
     class Meta:
         model = dogda_vaccination_info
         fields = ('id','dogda_name','type','vaccination_date','reg_date')
+
+class noticeForm(forms.ModelForm):
+    class Meta:
+        model = notice
+        fields = ('title','content')
+
+
