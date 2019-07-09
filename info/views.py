@@ -110,3 +110,12 @@ def notice_form(request):
             return HttpResponseRedirect("/info/notice")
     else:
         return render(request, 'info/notice_form.html')
+
+def diary(request):
+    return render(request, 'info/diary.html')
+
+def diary_form(request):
+    if request.method == "POST":
+        return HttpResponseRedirect("/info/diary")
+    else:
+        return render(request, 'info/diary_form.html')

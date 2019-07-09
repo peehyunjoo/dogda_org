@@ -8,5 +8,7 @@ urlpatterns = [
     path('vaccination_info_form/', views.vaccination_info_form),
     path('notice/', views.notice_list),
     path('notice_form/', views.notice_form),
+    path('diary/', views.diary),
+    path('diary_form/', views.diary_form),
 
 ]
