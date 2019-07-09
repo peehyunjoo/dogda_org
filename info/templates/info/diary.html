@@ -3,7 +3,7 @@
 <!-- base html 틀 안에 들어갈 내용 -->
 {% block content %}
     <div class="plus_button">
-        <a href="/info/diary_form?date="><i class="fas fa-plus fa-2x"></i></a>
+        <a href="#" onclick="submit()";><i class="fas fa-plus fa-2x"></i></a>
     </div>
     <div class="container info">
         <h3 align="center">애견 달력</h3>
@@ -23,6 +23,7 @@
                 <td align="center">금</td>
                 <td align="center"><font color ="skyblue">토</td>
             </tr>
+            <input type="hidden" value="" name="cal_date" id="cal_date">
         </table>
     </div>
 
@@ -33,11 +34,16 @@
             var d = $(this).text();
             //console.log(ym);
             //console.log(d);
-            var date = ym+d+"일";
-            console.log(date);
+            var cal_date = ym+d+"일";
+            console.log(cal_date);
+            $("#cal_date").val(cal_date);
         });
     });
     buildCalendar();
+
+    function submit(){
+        location.href="/info/diary_form?cal_date="+$("#cal_date").val();
+    }
 </script>
 
 {% endblock content %}

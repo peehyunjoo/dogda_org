@@ -137,8 +137,9 @@
                 var d = $(this).text();
                 //console.log(ym);
                 //console.log(d);
-                var date = ym+d+"일";
+                var cal_date = ym+d+"일";
                 console.log(date);
+                $("#cal_date").val(cal_date);
             });
 
         }
@@ -155,8 +156,9 @@
                 var d = $(this).text();
                // console.log(ym);
                 //console.log(d);
-                var date = ym+d+"일";
+                var cal_date = ym+d+"일";
                 console.log(date);
+                $("#cal_date").val(cal_date);
             });
         }
         function buildCalendar(){//현재 달 달력 만들기

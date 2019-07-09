@@ -118,4 +118,8 @@ def diary_form(request):
     if request.method == "POST":
         return HttpResponseRedirect("/info/diary")
     else:
-        return render(request, 'info/diary_form.html')
+        cal_date = request.GET.get("cal_date")
+        data = {
+            'data' : cal_date
+        }
+        return render(request, 'info/diary_form.html', data)
