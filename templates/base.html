@@ -115,13 +115,11 @@
             $(".ham_close").click(function(){
                 $(".hidden_menu").animate({left:-200}, 400);
             });
-
             $("input[name='radio']").click(function () {
               $(this).attr("checked",true);
               $("input[name='radio']").not($(this)).attr("checked",false);
             });
         });
-
         /* 달력 */
         var today = new Date();//오늘 날짜//내 컴퓨터 로컬을 기준으로 today에 Date 객체를 넣어줌
         var date = new Date();//today의 Date를 세어주는 역할
@@ -131,7 +129,6 @@
             //getMonth()는 현재 달을 받아 오므로 이전달을 출력하려면 -1을 해줘야함
              today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
              buildCalendar(); //달력 cell 만들어 출력
-
              $("#calendar").find("td").click(function(){
                 var ym = $("#tbCalendarYM").text().replace(/(\s*)/g,"");
                 var d = $(this).text();
@@ -141,16 +138,13 @@
                 console.log(date);
                 $("#cal_date").val(cal_date);
             });
-
         }
-
         function nextCalendar() {//다음 달
             // 다음 달을 today에 값을 저장하고 달력에 today 넣어줌
             //today.getFullYear() 현재 년도//today.getMonth() 월  //today.getDate() 일
             //getMonth()는 현재 달을 받아 오므로 다음달을 출력하려면 +1을 해줘야함
              today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
              buildCalendar();//달력 cell 만들어 출력
-
             $("#calendar").find("td").click(function(){
                 var ym = $("#tbCalendarYM").text().replace(/(\s*)/g,"");
                 var d = $(this).text();
@@ -179,7 +173,6 @@
             //innerHTML : js 언어를 HTML의 권장 표준 언어로 바꾼다
             //new를 찍지 않아서 month는 +1을 더해줘야 한다.
              tbCalendarYM.innerHTML = today.getFullYear() + "년 " + (today.getMonth() + 1) + "월";
-
              /*while은 이번달이 끝나면 다음달로 넘겨주는 역할*/
             while (tbCalendar.rows.length > 2) {
             //열을 지워줌
@@ -226,7 +219,6 @@
                }
              }
         }
-
     </script>
 <body>
 

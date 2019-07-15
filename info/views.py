@@ -9,8 +9,8 @@ import logging
 import requests
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import dogda_vaccination_info, dogda_info, notice
-from .forms import Dogda_infoForm,Dogda_vaccination_infoForm, noticeForm
+from .models import dogda_vaccination_info, dogda_info, notice, diary
+from .forms import Dogda_infoForm,Dogda_vaccination_infoForm, noticeForm, diaryForm
 
 # Create your views here.
 
@@ -114,9 +114,18 @@ def notice_form(request):
 def diary(request):
     return render(request, 'info/diary.html')
 
+@csrf_exempt
 def diary_form(request):
     if request.method == "POST":
-        return HttpResponseRedirect("/info/diary")
+
+
+        form = diaryForm(request.POST)
+
+        print(request.POST)
+        if form.is_valid():
+            diary = form.save(commit=False)
+            diary.save()
+            return HttpResponseRedirect("/info/diary")
     else:
         cal_date = request.GET.get("cal_date")
         data = {

@@ -67,7 +67,7 @@ class diary(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     reg_date = models.DateField()
-    flowers = models.CharField(max_length=8)
+    flowers = models.CharField(max_length=8, null=True, default=None, blank=True)
 
     def __str__(self):
         return self.id+self.dogda_name+self.title+self.content+self.flowers+self.reg_date
