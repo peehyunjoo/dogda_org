@@ -111,8 +111,16 @@ def notice_form(request):
     else:
         return render(request, 'info/notice_form.html')
 
-def diary(request):
-    return render(request, 'info/diary.html')
+def diary_list(request):
+
+    diary_list = diary.objects.all()
+
+    print(diary_list)
+    data = {
+        'list': diary_list
+    }
+
+    return render(request, 'info/diary.html',data)
 
 @csrf_exempt
 def diary_form(request):

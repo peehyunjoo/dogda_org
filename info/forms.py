@@ -18,6 +18,6 @@ class noticeForm(forms.ModelForm):
 class diaryForm(forms.ModelForm):
     class Meta:
         model = diary
-        fields = ('title','dogda_name','title','content','flowers','reg_date')
+        fields = ('id','dogda_name','title','content','flowers','reg_date')
 
 
