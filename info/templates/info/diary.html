@@ -2,39 +2,38 @@
 
 <!-- base html 틀 안에 들어갈 내용 -->
 {% block content %}
-    <div class="plus_button">
-        <a href="#" onclick="submit()";><i class="fas fa-plus fa-2x"></i></a>
-    </div>
-    <div class="container info">
-        <h3 align="center">애견 달력</h3>
-        <table id="calendar" border="3" align="center">
-            <tr><!-- label은 마우스로 클릭을 편하게 해줌 -->
-                <td><label onclick="prevCalendar()"><</label></td>
-                <td align="center" id="tbCalendarYM" colspan="5">
+<div class="plus_button">
+    <a href="#" onclick="submit()";><i class="fas fa-plus fa-2x"></i></a>
+</div>
+<div class="container info">
+    <h3 align="center">애견 달력</h3>
+    <table id="calendar" border="3" align="center">
+        <tr><!-- label은 마우스로 클릭을 편하게 해줌 -->
+            <td><label onclick="prevCalendar()"><</label></td>
+            <td align="center" id="tbCalendarYM" colspan="5">
                 yyyy년 m월</td>
-                <td><label onclick="nextCalendar()">></label></td>
-            </tr>
-            <tr>
-                <td align="center"><font color ="#F79DC2">일</td>
-                <td align="center">월</td>
-                <td align="center">화</td>
-                <td align="center">수</td>
-                <td align="center">목</td>
-                <td align="center">금</td>
-                <td align="center"><font color ="skyblue">토</td>
-            </tr>
-            <input type="hidden" value="" name="cal_date" id="cal_date">
-        </table>
+            <td><label onclick="nextCalendar()">></label></td>
+        </tr>
+        <tr>
+            <td align="center"><font color ="#F79DC2">일</td>
+            <td align="center">월</td>
+            <td align="center">화</td>
+            <td align="center">수</td>
+            <td align="center">목</td>
+            <td align="center">금</td>
+            <td align="center"><font color ="skyblue">토</td>
+        </tr>
+        <input type="hidden" value="" name="cal_date" id="cal_date">
+    </table>
 
-    </div>
+</div>
 
 <script>
     $(document).ready(function(){
         $("#calendar").find("td").click(function(){
             var ym = $("#tbCalendarYM").text().replace(/(\s*)/g,"");
             var d = $(this).text();
-           // console.log(ym);
-            //console.log(d);
+
             if(ym.length == 7 ){
                     var array = ym.split('년');
                     array[1] = "0"+array[1];
@@ -85,9 +84,39 @@
         console.log(cal_date);
         $("#cal_date").val(cal_date);
       });
+
+       var ym = $("#tbCalendarYM").text().replace(/(\s*)/g,"");
+       var d = $(this).text();
+
+       if(ym.length == 7 ){
+        var array = ym.split('년');
+        array[1] = "0"+array[1];
+        m = array[1];
+       }
+
+        for(var i = 0; i < check_data.length; i++){
+            var split_m = check_data[i].split('-');
+            console.log(split_m[i]);
+            if(split_m[1]+"월" == m){
+                if(split_m[2].charAt(0) == "0"){
+                    var check_d =split_m[2].charAt(1);
+                }else{
+                    var check_d = split_m[2];
+                }
+
+                $("td").each(function(){
+                    if($(this).html() == check_d ){
+                        $(this).addClass("redColor");
+                        $(".redColor").css("color","red");
+                    }
+                });
+            }
+        }
+
     }
 
     function nextCalendar() {//다음 달
+
     // 다음 달을 today에 값을 저장하고 달력에 today 넣어줌
     //today.getFullYear() 현재 년도//today.getMonth() 월  //today.getDate() 일
     //getMonth()는 현재 달을 받아 오므로 다음달을 출력하려면 +1을 해줘야함
@@ -120,6 +149,34 @@
         console.log(cal_date);
             $("#cal_date").val(cal_date);
         });
+
+
+        var ym = $("#tbCalendarYM").text().replace(/(\s*)/g,"");
+            var d = $(this).text();
+            if(ym.length == 7 ){
+                    var array = ym.split('년');
+                    array[1] = "0"+array[1];
+                    m = array[1];
+            }
+
+        for(var i = 0; i < check_data.length; i++){
+            var split_m = check_data[i].split('-');
+            console.log(split_m[i]);
+            if(split_m[1]+"월" == m){
+                if(split_m[2].charAt(0) == "0"){
+                    var check_d =split_m[2].charAt(1);
+                }else{
+                    var check_d = split_m[2];
+                }
+
+                $("td").each(function(){
+                    if($(this).html() == check_d ){
+                        $(this).addClass("redColor");
+                        $(".redColor").css("color","red");
+                    }
+                });
+            }
+        }
     }
 
     function buildCalendar(){//현재 달 달력 만들기
@@ -193,6 +250,7 @@
          }
         }
 
+
     buildCalendar();
 
     function submit(){
@@ -201,5 +259,44 @@
 
 </script>
 
+<script>
+
+var check_data =[];
+
+{% for data in list %}
+
+    var check_date = '{{ data.reg_date|date:'Y-m-d' }}';
+    check_data.push(check_date);
+    date_array = check_date.split("-");
+
+    if(date_array[2].charAt(0) == "0"){
+        var check_d =date_array[2].charAt(1);
+        //console.log(check_d);
+    }else{
+        var check_d = date_array[2];
+    }
+
+    var ym = $("#tbCalendarYM").text().replace(/(\s*)/g,"");
+        if(ym.length == 7 ){
+            var array = ym.split('년');
+                array[1] = "0"+array[1];
+                m = array[1];
+            }
+        console.log(m);
+
+        if(date_array[1]+"월" == m){
+            $("td").each(function(){
+                if($(this).html() == check_d ){
+                    console.log(check_d);
+                    console.log($(this).html());
+                    $(this).addClass("redColor");
+                    $(".redColor").css("color","red");
+                }
+            });
+        }
+
+{% endfor %}
+
+</script>
 
 {% endblock content %}
