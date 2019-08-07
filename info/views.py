@@ -140,3 +140,59 @@ def diary_form(request):
             'data' : cal_date
         }
         return render(request, 'info/diary_form.html', data)
+
+def diary_detail(request):
+    reg_date = request.GET.get("reg_date")
+
+    '''
+    list = diary.objects.filter(id='pizzu', reg_date = reg_date).values()   #전체 리스트를 가지고오는 것이므로 값만 하나씩 출력할수없음
+    
+    값을 하나씩 출력하고싶을때는 아래와 같은 방법으로 가져와야함
+        list3 = diary.objects.filter(id='pizzu', reg_date=reg_date)
+        print(list3[0].id)    ->list타입
+
+        list2 = diary.objects.get(id='pizzu', reg_date=reg_date)
+        print(list2.id)        ->dict타입
+    '''
+
+    list = diary.objects.get(id='pizzu', reg_date=reg_date)      #값을 가공해야할때는 filter가 아닌 get으로 가져와야 가공할수있는듯
+    list.reg_date = str(list.reg_date)
+
+    data = {
+        'list': list
+    }
+    print(type(list))
+
+    return render(request, 'info/diary_detail.html', data)
+
+@csrf_exempt
+def diary_update(request):
+
+    reg_date = str(request.POST.get("reg_date"))
+    dogda_name = request.POST.get("dogda_name")
+    title = request.POST.get("title")
+    content = request.POST.get("content")
+    flowers = request.POST.get("flowers")
+
+    print(request.POST)
+
+    if request.method == "POST":
+
+
+            dict = {
+                'dogda_name' : dogda_name,
+                'title' : title,
+                'content' : content,
+                'flowers' : flowers
+            }
+
+            list = diary.objects.filter(id='pizzu',reg_date = reg_date).values()
+            print(list)
+            diary.objects.filter(id ='pizzu', reg_date = reg_date).update(**dict)
+            return HttpResponseRedirect("/info/diary")
+
+    else:
+        print('ss')
+        logger = logging.getLogger('')
+        logger.error('로그찍기')
+        return render(request, 'info/diary_detail.html')

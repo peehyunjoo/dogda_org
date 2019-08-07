@@ -7,7 +7,7 @@
 </div>
 <div class="container info">
     <h3 align="center">애견 달력</h3>
-    <table id="calendar" border="3" align="center">
+    <table id="calendar" border="3" align="center" onClick="popup();">
         <tr><!-- label은 마우스로 클릭을 편하게 해줌 -->
             <td><label onclick="prevCalendar()"><</label></td>
             <td align="center" id="tbCalendarYM" colspan="5">
@@ -29,7 +29,8 @@
 </div>
 
 <script>
-    $(document).ready(function(){
+
+    function popup(){
         $("#calendar").find("td").click(function(){
             var ym = $("#tbCalendarYM").text().replace(/(\s*)/g,"");
             var d = $(this).text();
@@ -49,8 +50,15 @@
 
             console.log(cal_date);
             $("#cal_date").val(cal_date);
+
+            if($(this).attr('class') == 'redColor'){
+                var date = $("#cal_date").val().replace('년', '-');
+                date = date.replace('월', '-');
+                date = date.slice(0,-1);
+                location.href='/info/diary_detail?reg_date='+date;
+            }
         });
-    });
+    }
 
     /* 달력 */
     var today = new Date();//오늘 날짜//내 컴퓨터 로컬을 기준으로 today에 Date 객체를 넣어줌

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+<!-- base html 틀 안에 들어갈 내용 -->
+{% block content %}
+<script>
+
+    function check(){;
+        var id = $("input[name=id").val();
+        var title = $("input[name=title").val();
+        var dogda_name = $("input[name=dogda_name").val();
+        var content = $("input[name=content").val();
+        var flowers = $("input[name=flowers").val();
+
+        $("#dogda_name").val(dogda_name);
+        $("#title").val(title);
+        $("#content").val(content);
+        $("#flowers").val(flowers);
+
+        console.log($("#title").val());
+        $("#frm").submit();
+    }
+
+</script>
+    <div class="container info">
+        <form method="post" action="/info/diary_update/" id ="frm" >
+            {% csrf_token %}
+          <div class="form-row">
+            <div class="col">
+                <input type="hidden" class="form-control" id="id" name="id" value="{{ list.id }}">
+                <input type="hidden" class="form-control" id="reg_date" name="reg_date" value="{{ list.reg_date }}">
+                애견이름 <input type="text" class="form-control" id="dogda_name" name='dogda_name' value="{{ list.dogda_name }}">
+                애견제목 <input type="text" class="form-control" id="title" name='title' value="{{ list.title }}">
+                내용 <input type="text" class="form-control" id="content" name='content' value="{{ list.content }}">
+                생리일 <input type="text" class="form-control" id ="flowers" name='flowers' value="{{ list.flowers }}">
+            </div>
+          </div>
+          <div class="form-row">
+              <div class="col" style="top:17px;">
+                  <button type="submit" class="btn btn-primary btn-lg btn-block">등록</button>
+              </div>
+          </div>
+        </form>
+    </div>
+
+{% endblock content %}

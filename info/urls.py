@@ -10,5 +10,7 @@ urlpatterns = [
     path('notice_form/', views.notice_form),
     path('diary/', views.diary_list),
     path('diary_form/', views.diary_form),
+    path('diary_detail/', views.diary_detail),
+    path('diary_update/', views.diary_update),
 
 ]
