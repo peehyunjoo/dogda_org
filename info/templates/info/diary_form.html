@@ -5,7 +5,7 @@
     <form action="/info/diary_form/" method="post">
         {% csrf_token %}
     <div class="container info">
-        <input type="hidden" class="form-control" id="reg_date" name="reg_date" value="2019-08-02">
+        <input type="hidden" class="form-control" id="reg_date" name="reg_date" value="{{ reg_date }}">
         <input type="hidden" class="form-control" id="id" name="id" value="pizzu">
         <div class="form-group">
             <label for="formGroupExampleInput">제목</label>

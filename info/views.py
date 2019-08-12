@@ -32,11 +32,17 @@ def info_form(request):
     # data = request.POST
     date = DateFormat(datetime.now()).format('Y-m-d')     #오늘 날짜만 가져오기
 
-    dict = request.POST.dict()
-    dict["reg_date"] = date
-
-    print(dict)
     if request.method == "POST":
+        dict = request.POST.dict()
+
+        dogda_birth = request.POST.get('dogda_birth')
+
+        print(dogda_birth)
+        dict["reg_date"] = date
+        dict["dogda_birth"] = dogda_birth.replace("-", "")
+
+        print(dict)
+
         form = Dogda_infoForm(dict)
 
         if form.is_valid():
@@ -120,6 +126,7 @@ def diary_list(request):
         'list': diary_list
     }
 
+
     return render(request, 'info/diary.html',data)
 
 @csrf_exempt
@@ -136,9 +143,18 @@ def diary_form(request):
             return HttpResponseRedirect("/info/diary")
     else:
         cal_date = request.GET.get("cal_date")
+
+        cal_date = cal_date[:-1]
+        cal_date = cal_date.replace("년","-");
+        cal_date =  cal_date.replace("월","-");
+
+
         data = {
-            'data' : cal_date
+            'reg_date' : cal_date
         }
+
+        print(data)
+
         return render(request, 'info/diary_form.html', data)
 
 def diary_detail(request):
