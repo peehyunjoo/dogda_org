@@ -17,7 +17,7 @@
           {% for data in list %}
             <tr>
               <th scope="row">{{ data.idx }}</th>
-              <td>{{ data.title }}</td>
+              <td><a href="/info/notice_detail?idx={{ data.idx }}">{{ data.title }}</a></td>
             </tr>
           {% endfor %}
           </tbody>

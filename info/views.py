@@ -56,7 +56,56 @@ def info_form(request):
         logger.error('로그찍기')
         return render(request, 'info/info_form.html')
 
-#백신 정보
+#애견정보 업데이트
+def info_update(request):
+    if request.method == "GET":
+
+        id = request.GET.get("id")
+        dogda_name = request.GET.get("dogda_name")
+        info_list = dogda_info.objects.get(id=id, dogda_name=dogda_name)
+
+        birth1 = str(info_list.dogda_birth[0:4])
+        birth2 = str(info_list.dogda_birth[4:6])
+        birth3 = str(info_list.dogda_birth[6:10])
+
+        info_list.dogda_birth = birth1+"-"+birth2+"-"+birth3
+        print(info_list.dogda_birth)
+        data = {
+            'dogda_name': info_list.dogda_name,
+            'id': info_list.id,
+            'dogda_type': info_list.dogda_type,
+            'dogda_birth': info_list.dogda_birth,
+            'dogda_gender' : info_list.dogda_gender,
+            'idx' : info_list.idx
+        }
+
+        print(data)
+
+        return render(request, 'info/info_update.html', data)
+    else:
+
+        id = request.POST.get("id")
+        idx = request.POST.get("idx")
+        dogda_birth = request.POST.get("dogda_birth")
+        dogda_name = request.POST.get("dogda_name")
+        dogda_gender = request.POST.get("dogda_gender")
+        dogda_type = request.POST.get("dogda_type")
+
+        print(dogda_name);
+        dict = {
+            'dogda_name': dogda_name,
+            'id': id,
+            'dogda_birth': dogda_birth.replace("-", ""),
+            'dogda_gender': dogda_gender,
+            'dogda_type' : dogda_type
+        }
+
+        list = dogda_info.objects.filter(id='pizzu', idx=idx).values()
+        print(list)
+        dogda_info.objects.filter(id='pizzu', idx=idx).update(**dict)
+        return HttpResponseRedirect("/info")
+
+    #백신 정보
 def vaccination_info(request):
     vaccination_info_list = dogda_vaccination_info.objects.filter(id='pizzu').values()
 
@@ -116,6 +165,19 @@ def notice_form(request):
             return HttpResponseRedirect("/info/notice")
     else:
         return render(request, 'info/notice_form.html')
+
+def notice_detail(request):
+    idx = request.GET.get("idx")
+
+
+    notice_list = notice.objects.get(idx=idx)
+
+    data = {
+        'list' : notice_list
+    }
+    print(notice_list.title)
+
+    return render(request, 'info/notice_detail.html', data)
 
 def diary_list(request):
 
