@@ -83,8 +83,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dogda',
-        'USER':'',
-        'PASSWORD': '',
+        'USER':'peehyunjoo',
+        'PASSWORD': 'phj919100',
         'HOST': 'pizzudb.cfjiog4ayfky.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
@@ -137,7 +137,7 @@ STATIC_URL = '/static/'
 
 LOGGING = {
     'version':1,
-    'disable_existing_loggers':False,
+    'disable_existing_loggers':True,
     'handlers':{
         'file':{
             'level':'DEBUG',
