@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-#import django_heroku       //debug.log를 할려면 헤로쿠 자체를 빼야 debug.log가 생김!
+import django_heroku       #debug.log를 할려면 헤로쿠 자체를 빼야 debug.log가 생김!
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -82,10 +82,10 @@ WSGI_APPLICATION = 'dogda.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '',
-        'USER':'',
-        'PASSWORD': '',
-        'HOST': '',
+        'NAME': 'dogda',
+        'USER':'peehyunjoo',
+        'PASSWORD': 'phj919100',
+        'HOST': 'pizzudb.cfjiog4ayfky.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
         'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
@@ -155,4 +155,4 @@ LOGGING = {
     },
 }
 
-#django_heroku.settings(locals())
+django_heroku.settings(locals())
