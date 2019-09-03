@@ -83,9 +83,9 @@ WSGI_APPLICATION = 'dogda.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dogda',
-        'USER':'peehyunjoo',
-        'PASSWORD': 'phj919100',
+        'NAME': '',
+        'USER':'',
+        'PASSWORD': '',
         'HOST': 'pizzudb.cfjiog4ayfky.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
