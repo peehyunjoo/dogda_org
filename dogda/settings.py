@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import django_heroku       #debug.log를 할려면 헤로쿠 자체를 빼야 debug.log가 생김!
-
+from dogda.info_settings import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '(j4b=r!q-kz5vyz%s)z8p59r76&x@xwjwo&u@3+7i$4v1&$s=_2')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 #ALLOWED_HOSTS = ['localhost','127.0.0.1','herokuapp.com']
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
@@ -79,6 +79,7 @@ WSGI_APPLICATION = 'dogda.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -87,6 +88,21 @@ DATABASES = {
         'PASSWORD': 'phj919100',
         'HOST': 'pizzudb.cfjiog4ayfky.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
+        'OPTIONS': {
+        'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
+        }
+    }
+}
+'''
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': NAME,
+        'USER':USER,
+        'PASSWORD': PASSWORD,
+        'HOST': HOST,
+        'PORT': PORT,
         'OPTIONS': {
         'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
         }
@@ -137,14 +153,20 @@ STATIC_URL = '/static/'
 
 LOGGING = {
     'version':1,
-    'disable_existing_loggers':False,
+    'disable_existing_loggers':False,   #기존의 로그설정을 비활서화 할것인지
     'handlers':{
+        # 로그 파일을 만들어 텍스트로 로그레코드 저장
         'file':{
             'level':'DEBUG',
             'class':'logging.FileHandler',
             'filename':'debug.log',
             #'filename':'../myLog.log'
         },
+        #콘솔에 출력
+        'console':{
+            'level': 'DEBUG',
+            'class' : 'logging.StreamHandler'
+        }
     },
     'loggers':{
         'django':{
