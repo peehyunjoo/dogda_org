@@ -2,11 +2,14 @@
 
 <!-- base html 틀 안에 들어갈 내용 -->
 {% block content %}
+
+{% if request.session.id %}
+
     <form action="/info/vaccination_info_form/" method="post">
         {% csrf_token %}
     <div class="container info">
         <div class="form-group">
-            <input type="hidden" class="form-control" id="id" name="id" value="pizzu">
+            <input type="hidden" class="form-control" id="id" name="id" value="{{ request.session.id }}">
             <select class ="form-control form-control-sm" name="type">
                 <option value="vaccin" id="vaccin">종합백신</option>
                 <option value="corona" id="corona">코로나장염</option>
@@ -26,4 +29,12 @@
         <button type="submit" class="btn btn-primary btn-lg btn-block">등록</button>
     </div>
     </form>
+
+{% else %}
+    <script>
+    alert("로그인 해주세요");
+    location.href='/info/login';
+    </script>
+{% endif %}
+
 {% endblock content %}

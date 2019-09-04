@@ -5,13 +5,12 @@ import datetime
 import datetime
 
 class member(models.Model):
-    idx = models.AutoField(primary_key=True)
-    id = models.CharField(max_length=50)
+    id = models.CharField(max_length=50,primary_key=True)
     nickname = models.CharField(max_length=20)
     reg_date = models.DateField()
 
     def __str__(self):
-        return self.id
+        return self.id + self.nickname
 
 class admin_member(models.Model):
     idx = models.AutoField(primary_key=True)

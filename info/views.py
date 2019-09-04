@@ -9,8 +9,9 @@ import logging
 import requests
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import dogda_vaccination_info, dogda_info, notice, diary
-from .forms import Dogda_infoForm,Dogda_vaccination_infoForm, noticeForm, diaryForm
+from .models import dogda_vaccination_info, dogda_info, notice, diary, member
+from .forms import Dogda_infoForm,Dogda_vaccination_infoForm, noticeForm, diaryForm, memberForm
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -54,6 +55,7 @@ def info_form(request):
 
         logger = logging.getLogger('')
         logger.error('로그찍기')
+
         return render(request, 'info/info_form.html')
 
 #애견정보 업데이트
@@ -188,7 +190,6 @@ def diary_list(request):
         'list': diary_list
     }
 
-
     return render(request, 'info/diary.html',data)
 
 @csrf_exempt
@@ -270,7 +271,70 @@ def diary_update(request):
             return HttpResponseRedirect("/info/diary")
 
     else:
-        print('ss')
         logger = logging.getLogger('')
         logger.error('로그찍기')
+
         return render(request, 'info/diary_detail.html')
+
+# 회원가입
+@csrf_exempt
+def member_form(request):
+
+    # data = request.POST
+    date = DateFormat(datetime.now()).format('Y-m-d')  # 오늘 날짜만 가져오기
+
+    if request.method == "POST":
+        dict = request.POST.dict()
+        dict['reg_date'] = date
+
+        print(dict)
+        form = memberForm(dict)
+
+        if form.is_valid():
+            dogda_member = form.save(commit=False)
+            dogda_member.save()
+            return HttpResponseRedirect("/info/login")
+
+    else:
+
+        logger = logging.getLogger('')
+        logger.error('로그찍기')
+        return render(request, 'login/join_form.html')
+
+# 로그인
+@csrf_exempt
+def login_form(request):
+
+    if request.method == "POST":
+
+        try:
+            list = member.objects.get(id=request.POST.get('id'))
+            if list is not None:
+                print("list")
+                request.session['id'] = list.id
+                return HttpResponseRedirect("/info")
+            else:
+                print("a")
+                return render(request, 'login/login_form.html')
+            #    return render(request, 'account/login.html', {'error': 'username or password is incorrect'})
+        except member.DoesNotExist:
+            list = None
+            return render(request, 'login/login_form.html')
+
+
+
+    else:
+        logger = logging.getLogger('')
+        logger.error('로그찍기')
+        request.session.get('id')
+        return render(request,'login/login_form.html')
+
+# 로그인
+@csrf_exempt
+def logout(request):
+
+    if request.method == "GET":
+
+        del request.session['id']
+
+        return HttpResponseRedirect("/info")

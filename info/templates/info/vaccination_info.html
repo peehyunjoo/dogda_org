@@ -2,6 +2,9 @@
 
 <!-- base html 틀 안에 들어갈 내용 -->
 {% block content %}
+
+{% if request.session.id %}
+
     <div class="plus_button">
         <a href="/info/vaccination_info_form/"><i class="fas fa-plus fa-2x"></i></a>
     </div>
@@ -27,5 +30,12 @@
           </tbody>
         </table>
     </div>
+
+{% else %}
+    <script>
+    alert("로그인 해주세요");
+    location.href='/info/login';
+    </script>
+{% endif %}
 
 {% endblock content %}

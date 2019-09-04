@@ -1,5 +1,5 @@
 from django import forms
-from .models import dogda_info,dogda_vaccination_info,notice, diary
+from .models import dogda_info,dogda_vaccination_info,notice, diary, member
 
 class Dogda_infoForm(forms.ModelForm):
     class Meta:
@@ -19,5 +19,8 @@ class diaryForm(forms.ModelForm):
     class Meta:
         model = diary
         fields = ('id','dogda_name','title','content','flowers','reg_date')
-
+class memberForm(forms.ModelForm):
+    class Meta:
+        model = member
+        fields = ('id','nickname','reg_date')
 

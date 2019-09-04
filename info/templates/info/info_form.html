@@ -2,11 +2,14 @@
 
 <!-- base html 틀 안에 들어갈 내용 -->
 {% block content %}
+
+{% if request.session.id %}
+
     <form action="/info/info_form/" method="post">
         {% csrf_token %}
     <div class="container info">
         <div class="form-group">
-            <input type="hidden" class="form-control" id="id" name="id" value="pizzu" placeholder="애견 출생년도">
+            <input type="hidden" class="form-control" id="id" name="id" value="{{ request.session.id }}" placeholder="애견 출생년도">
             <label for="formGroupExampleInput">애견 출생년도</label>
             <input type="date" class="form-control" id="dogda_birth" name="dogda_birth" placeholder="애견 출생년도">
         </div>
@@ -38,4 +41,12 @@
         <button type="submit" class="btn btn-primary btn-lg btn-block">등록</button>
     </div>
     </form>
+
+{% else %}
+    <script>
+    alert("로그인 해주세요");
+    location.href='/info/login';
+    </script>
+{% endif %}
+
 {% endblock content %}

@@ -105,6 +105,10 @@
             border-block-end-style: unset;
             border-color:#CEE3F6;
         }
+        b{
+            position:absolute;
+            right:0px;
+        }
     </style>
     <script>
         $(document).ready(function(){
@@ -127,6 +131,9 @@
         <div class="nav">
           <i class="fas fa-bars fa-2x ham"></i>
             <span>DOGDA</span>
+            {% if request.session.id %}
+                <a href="/info/logout"><b>{{ request.session.id }}님</b></a>
+            {% endif %}
         </div>
     </div>
     <div class="hidden_menu">

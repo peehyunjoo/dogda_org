@@ -2,6 +2,9 @@
 
 <!-- base html 틀 안에 들어갈 내용 -->
 {% block content %}
+
+{% if request.session.id %}
+
 <script>
 
     function check(){;
@@ -42,4 +45,7 @@
         </form>
     </div>
 
+{% else %}
+    <script>location.href='/info/login';</script>
+{% endif %}
 {% endblock content %}
