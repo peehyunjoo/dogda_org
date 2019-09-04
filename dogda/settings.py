@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import django_heroku       #debug.log를 할려면 헤로쿠 자체를 빼야 debug.log가 생김!
-#from dogda.info_settings import *      #헤로쿠에서는 필요없으므로 빼기
+from dogda.info_settings import *      #헤로쿠에서는 필요없으므로 빼기
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': '',
         'USER':'',
         'PASSWORD': '',
-        'HOST': 'pizzudb.cfjiog4ayfky.ap-northeast-2.rds.amazonaws.com',
+        'HOST': '',
         'PORT': '3306',
         'OPTIONS': {
         'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
@@ -94,7 +94,7 @@ DATABASES = {
     }
 }
 '''
-''' 로컬셋팅
+# 로컬셋팅
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -103,21 +103,6 @@ DATABASES = {
         'PASSWORD': PASSWORD,
         'HOST': HOST,
         'PORT': PORT,
-        'OPTIONS': {
-        'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
-        }
-    }
-}
-'''
-# 헤로쿠셋팅
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': ${NAME},
-        'USER':${USERT},
-        'PASSWORD': ${PASSWORD},
-        'HOST': ${HOST},
-        'PORT': ${PORT},
         'OPTIONS': {
         'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
         }
