@@ -5,7 +5,18 @@
 
 {% if request.session.id %}
 
-    <form action="/info/vaccination_info_form/" method="post">
+<script>
+function check(){
+    if($("#dogda_name").val() ==""){
+        alert("애견 이름을 입력해주세요.");
+        return false;
+    }else if($("#vaccination_date").val() == ""){
+        alert("날짜를 입력해주세요.");
+        return false;
+    }
+}
+</script>
+    <form action="/info/vaccination_info_form/" method="post" onsubmit="return check();">
         {% csrf_token %}
     <div class="container info">
         <div class="form-group">

@@ -71,7 +71,7 @@ class diary(models.Model):
 
 
     def __str__(self):
-        return self.id + self.dogda_name + self.title + self.content+self.flowers+str(self.reg_date)
+        return str(self.idx)+self.id+self.dogda_name + self.title + self.content+self.flowers+str(self.reg_date)
 
 
 # Create your models here.

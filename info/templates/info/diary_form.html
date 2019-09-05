@@ -4,8 +4,24 @@
 {% block content %}
 
 {% if request.session.id %}
-
-    <form action="/info/diary_form/" method="post">
+<script>
+function check(){
+    if($("#dogda_name").val() ==""){
+        alert("애견 이름을 입력해주세요.");
+        return false;
+    }else if($("#title").val() == ""){
+        alert("제목을 입력해주세요.");
+        return false;
+    }else if($("#content").val() == ""){
+        alert("내용을 입력해주세요.");
+        return false;
+    }else if($("#content").val() == ""){
+        alert("내용을 입력해주세요.");
+        return false;
+    }
+}
+</script>
+    <form action="/info/diary_form/" method="post" onsubmit="return check();">
         {% csrf_token %}
     <div class="container info">
         <input type="hidden" class="form-control" id="reg_date" name="reg_date" value="{{ reg_date }}">

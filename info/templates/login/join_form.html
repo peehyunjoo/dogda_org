@@ -2,7 +2,20 @@
 
 <!-- base html 틀 안에 들어갈 내용 -->
 {% block content %}
-    <form action="/info/join/" method="post">
+<script>
+
+    function check(){
+        if($("#id").val() == ""){
+            alert("아이디를 입력해주세요.");
+            return false;
+        }else if($("#nickname").val() == ""){
+            alert("닉네임을 적어주세요.");
+            return false;
+        }
+    }
+
+</script>
+    <form action="/info/join/" method="post" onsubmit="return check();">
         {% csrf_token %}
     <div class="container info">
         <div class="form-group">

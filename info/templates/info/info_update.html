@@ -44,7 +44,8 @@
                 <option value="sibe"  id="sibe" {% if dogda_type == "sibe" %} selected="selected"{% endif %}>시베리안허스키</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary btn-lg btn-block">수정</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block update_btn">수정</button>
+        <a href="/info/info_delete?id={{ request.session.id }}&idx={{ idx }}"><button type="button" class="btn btn-primary btn-lg btn-block cancel_btn">취소</button></a>
     </div>
     </form>
 

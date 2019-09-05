@@ -17,14 +17,19 @@ from django.shortcuts import get_object_or_404
 
 #애견 정보
 def index(request):
-    dogda_info_list = dogda_info.objects.filter(id=request.session['id']).values()
 
-    print(dogda_info_list)
+    if(request.session.get('id')):
+        print(request.session['id'])
+        dogda_info_list = dogda_info.objects.filter(id=request.session.get('id')).values()
 
-    data = {
-        'list' : dogda_info_list
-    }
-    return render(request, 'info/info.html' , data)
+        print(dogda_info_list)
+
+        data = {
+            'list' : dogda_info_list
+        }
+        return render(request, 'info/info.html' , data)
+    else:
+        return render(request, 'info/info.html')
 
 #애견 정보 등록 form
 @csrf_exempt
@@ -183,7 +188,9 @@ def notice_detail(request):
 
 def diary_list(request):
 
-    diary_list = diary.objects.all()
+    #diary_list = diary.objects.all()
+    #print(request.session.get('id'))
+    diary_list = diary.objects.filter(id=request.session.get('id'))
 
     print(diary_list)
     data = {
@@ -233,16 +240,23 @@ def diary_detail(request):
         list2 = diary.objects.get(id='pizzu', reg_date=reg_date)
         print(list2.id)        ->dict타입
     '''
+    try:
+        list = diary.objects.get(id=request.session.get('id'), reg_date=reg_date)      #값을 가공해야할때는 filter가 아닌 get으로 가져와야 가공할수있는듯
+        list.reg_date = str(list.reg_date)
 
-    list = diary.objects.get(id=request.session['id'], reg_date=reg_date)      #값을 가공해야할때는 filter가 아닌 get으로 가져와야 가공할수있는듯
-    list.reg_date = str(list.reg_date)
+        data = {
+            'list': list
+        }
+        print(type(list))
 
-    data = {
-        'list': list
-    }
-    print(type(list))
+        return render(request, 'info/diary_detail.html', data)
 
-    return render(request, 'info/diary_detail.html', data)
+    except diary.DoesNotExist:
+        list = None
+        data ={
+            'list' : list
+        }
+        return render(request, 'info/diary_detail.html', data)
 
 @csrf_exempt
 def diary_update(request):
@@ -265,9 +279,9 @@ def diary_update(request):
                 'flowers' : flowers
             }
 
-            list = diary.objects.filter(id=request.session['id'],reg_date = reg_date).values()
+            list = diary.objects.filter(id=request.session.get('id'),reg_date = reg_date).values()
             print(list)
-            diary.objects.filter(id =request.session['id'], reg_date = reg_date).update(**dict)
+            diary.objects.filter(id =request.session.get('id'), reg_date = reg_date).update(**dict)
             return HttpResponseRedirect("/info/diary")
 
     else:
@@ -338,3 +352,43 @@ def logout(request):
         del request.session['id']
 
         return HttpResponseRedirect("/info")
+
+# 애견정보 삭제
+def info_delete(request):
+
+    idx = request.GET.get("idx")
+    id = request.GET.get("id")
+
+
+    if request.method == "GET":
+
+        list = dogda_info.objects.filter(id =id, idx = idx)
+        print(list)
+        list.delete()
+        return HttpResponseRedirect("/info/")
+
+    else:
+        logger = logging.getLogger('')
+        logger.error('로그찍기')
+
+        return HttpResponseRedirect("/info/")
+
+# 애견일기 삭제
+def diary_delete(request):
+
+    idx = request.GET.get("idx")
+    id = request.GET.get("id")
+
+
+    if request.method == "GET":
+
+        list = diary.objects.filter(id =id, idx = idx)
+        print(list)
+        list.delete()
+        return HttpResponseRedirect("/info/diary/")
+
+    else:
+        logger = logging.getLogger('')
+        logger.error('로그찍기')
+
+        return HttpResponseRedirect("/info/diary")

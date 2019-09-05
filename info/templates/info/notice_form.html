@@ -5,7 +5,22 @@
 
 {% if request.session.id %}
 
-    <form action="/info/notice_form/" method="post">
+<script>
+function check(){
+
+    var dogda_type = $(".radio").is(":checked");
+
+        if($("#title").val() ==""){
+            alert("제목을 입력해주세요.");
+            return false;
+        }else if($("#content").val() == ""){
+            alert("내용을 입력해주세요.");
+            return false;
+        }
+}
+
+</script>
+    <form action="/info/notice_form/" method="post" onsubmit="return check();">
         {% csrf_token %}
     <div class="container info">
         <div class="form-group">

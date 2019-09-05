@@ -4,8 +4,25 @@
 {% block content %}
 
 {% if request.session.id %}
+<script>
+function check(){
 
-    <form action="/info/info_form/" method="post">
+    var dogda_type = $(".radio").is(":checked");
+
+        if($("#dogda_birth").val() ==""){
+            alert("애견 출생년도를 입력해주세요.");
+            return false;
+        }else if($("#dogda_name").val() == ""){
+            alert("애견 이름을 적어주세요.");
+            return false;
+        }else if(dogda_type == false){
+            alert("성별을 선택해주세요.");
+            return false;
+        }
+}
+
+</script>
+    <form action="/info/info_form/" method="post" onsubmit="return check();">
         {% csrf_token %}
     <div class="container info">
         <div class="form-group">

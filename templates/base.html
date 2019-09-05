@@ -108,6 +108,16 @@
         b{
             position:absolute;
             right:0px;
+            top:0.5em;
+        }
+        .update_btn{
+            margin-right:2%;
+            width:49%;
+            float:left;
+        }
+        .cancel_btn{
+            margin-left:2%;
+            width:49%;
         }
     </style>
     <script>
@@ -132,7 +142,7 @@
           <i class="fas fa-bars fa-2x ham"></i>
             <span>DOGDA</span>
             {% if request.session.id %}
-                <a href="/info/logout"><b>{{ request.session.id }}님</b></a>
+                <a href="/info/logout"><b>{{ request.session.id }}님<i class="fas fa-sign-out-alt"></i></b></a>
             {% endif %}
         </div>
     </div>
@@ -140,19 +150,19 @@
         <i class="fas fa-times fa-2x ham_close"></i>
         <ul>
                 <li>
-                    <a href="/info/notice"><p class="tit">메인</p></a>
+                    <a href="/info/notice"><p class="tit"><i class="fas fa-home">&nbsp;메인</i></p></a>
 				</li>
 				<li>
-                    <a href="/info"><p class="tit">애견정보</p></a>
+                    <a href="/info"><p class="tit"><i class="fas fa-info">&nbsp;애견정보</i></p></a>
 				</li>
 				<li>
-                    <a href="/info/vaccination_info"><p class="tit">애견접종리스트</p></a>
+                    <a href="/info/vaccination_info"><p class="tit"><i class="fas fa-clinic-medical">&nbsp;애견접종리스트</i></p></a>
 				</li>
 				<li>
-                    <a href="/info/diary"><p class="tit">애견일기</p></a>
+                    <a href="/info/diary"><p class="tit"><i class="fas fa-book">&nbsp;애견일기</i></p></a>
 				</li>
 				<li>
-					<p class="tit">Q&A</p>
+					<p class="tit"><i class="fas fa-question">&nbsp;Q&A</i></p>
 				</li>
 			</ul>
     </div>
