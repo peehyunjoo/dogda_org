@@ -17,7 +17,7 @@ from django.shortcuts import get_object_or_404
 
 #애견 정보
 def index(request):
-    dogda_info_list = dogda_info.objects.filter(id='pizzu').values()
+    dogda_info_list = dogda_info.objects.filter(id=request.session['id']).values()
 
     print(dogda_info_list)
 
@@ -102,14 +102,14 @@ def info_update(request):
             'dogda_type' : dogda_type
         }
 
-        list = dogda_info.objects.filter(id='pizzu', idx=idx).values()
+        list = dogda_info.objects.filter(id=id, idx=idx).values()
         print(list)
-        dogda_info.objects.filter(id='pizzu', idx=idx).update(**dict)
+        dogda_info.objects.filter(id=id, idx=idx).update(**dict)
         return HttpResponseRedirect("/info")
 
     #백신 정보
 def vaccination_info(request):
-    vaccination_info_list = dogda_vaccination_info.objects.filter(id='pizzu').values()
+    vaccination_info_list = dogda_vaccination_info.objects.filter(id=id).values()
 
     print(vaccination_info_list)
     data = {
@@ -234,7 +234,7 @@ def diary_detail(request):
         print(list2.id)        ->dict타입
     '''
 
-    list = diary.objects.get(id='pizzu', reg_date=reg_date)      #값을 가공해야할때는 filter가 아닌 get으로 가져와야 가공할수있는듯
+    list = diary.objects.get(id=request.session['id'], reg_date=reg_date)      #값을 가공해야할때는 filter가 아닌 get으로 가져와야 가공할수있는듯
     list.reg_date = str(list.reg_date)
 
     data = {
@@ -265,9 +265,9 @@ def diary_update(request):
                 'flowers' : flowers
             }
 
-            list = diary.objects.filter(id='pizzu',reg_date = reg_date).values()
+            list = diary.objects.filter(id=request.session['id'],reg_date = reg_date).values()
             print(list)
-            diary.objects.filter(id ='pizzu', reg_date = reg_date).update(**dict)
+            diary.objects.filter(id =request.session['id'], reg_date = reg_date).update(**dict)
             return HttpResponseRedirect("/info/diary")
 
     else:
