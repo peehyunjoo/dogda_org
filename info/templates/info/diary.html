@@ -114,11 +114,14 @@
             var array = ym.split('년');
             array[1] = "0"+array[1];
             m = array[1];
+        }else{
+            var array = ym.split('년');
+            m = array[1];
         }
 
         for(var i = 0; i < check_data.length; i++){
             var split_m = check_data[i].split('-');
-            console.log(split_m[i]);
+            console.log(split_m[1]+"월");
             if(split_m[1]+"월" == m){
                 if(split_m[2].charAt(0) == "0"){
                     var check_d =split_m[2].charAt(1);
@@ -156,7 +159,7 @@
             var array = ym.split('년');
             array[1] = "0"+array[1];
             ym = array[0]+"년"+array[1];
-            cal_date = ym+d+"일";
+            //cal_date = ym+d+"일";
             console.log('1');
         }
 
@@ -186,11 +189,15 @@
                 var array = ym.split('년');
                 array[1] = "0"+array[1];
                 m = array[1];
+            }else{
+                var array = ym.split('년');
+                m = array[1];
             }
 
         for(var i = 0; i < check_data.length; i++){
             var split_m = check_data[i].split('-');
-            console.log(split_m[i]);
+            console.log(split_m[1]+"월");
+
             if(split_m[1]+"월" == m){
                 if(split_m[2].charAt(0) == "0"){
                     var check_d =split_m[2].charAt(1);
