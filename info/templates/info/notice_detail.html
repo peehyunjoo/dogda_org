@@ -7,17 +7,40 @@
 
     <div class="container info">
             {% csrf_token %}
-          <div class="form-row">
-            <div class="col">
-                제목 <input type="text" class="form-control" id="title" name='title' value="{{ list.title }}" readonly>
-                내용 <textarea class="form-control" id="content" name='content' readonly> {{ list.content }} </textarea>
+            {% if request.session.id != "admin" %}
+            <div class="form-row">
+
+                <div class="col">
+                        제목 <input type="text" class="form-control"  value="{{ list.title }}" readonly>
+                        내용 <textarea class="form-control"  readonly> {{ list.content }} </textarea>
+                </div>
             </div>
-          </div>
-          <div class="form-row">
-              <div class="col" style="top:17px;">
-                <a href="/info/notice/"><button type="button" class="btn btn-primary btn-lg btn-block">확인</button></a>
-              </div>
-          </div>
+
+            <div class="form-row">
+                  <div class="col" style="top:17px;">
+                        <a href="/info/notice/"><button type="button" class="btn btn-primary btn-lg btn-block">확인</button></a>
+                  </div>
+            </div>
+
+            {% else %}
+
+            <form action="/info/notice_update/" method="post">
+            <div class="form-row">
+
+                <div class="col">
+                        제목 <input type="text" class="form-control" name="title" value="{{ list.title }}">
+                        내용 <textarea class="form-control" name="content"> {{ list.content }} </textarea>
+                            <input type="hidden" class="form-control" id="idx" name='idx' value="{{ list.idx}}">
+                </div>
+            </div>
+            <div class="form-row">
+                  <div class="col" style="top:17px;">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">확인</button>
+                  </div>
+            </div>
+            </form>
+
+        {% endif %}
 
     </div>
 

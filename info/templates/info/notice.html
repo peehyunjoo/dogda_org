@@ -5,9 +5,11 @@
 
 {% if request.session.id %}
 
+    {% if request.session.id == "admin" %}
     <div class="plus_button">
         <a href="/info/notice_form/"><i class="fas fa-plus fa-2x"></i></a>
     </div>
+    {% endif %}
     <div class="container info">
         <table class="table" style="font-size:10px;">
           <thead class="thead-dark">

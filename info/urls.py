@@ -10,6 +10,7 @@ urlpatterns = [
     path('notice/', views.notice_list),
     path('notice_form/', views.notice_form),
     path('notice_detail/', views.notice_detail),
+    path('notice_update/', views.notice_update),
     path('diary/', views.diary_list),
     path('diary_form/', views.diary_form),
     path('diary_detail/', views.diary_detail),

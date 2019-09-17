@@ -186,6 +186,35 @@ def notice_detail(request):
 
     return render(request, 'info/notice_detail.html', data)
 
+@csrf_exempt
+def notice_update(request):
+
+    title = request.POST.get("title")
+    content = request.POST.get("content")
+    idx = request.POST.get("idx")
+
+    print(request.POST)
+
+    if request.method == "POST":
+
+
+            dict = {
+                'title' : title,
+                'content' : content,
+                'idx': idx,
+            }
+
+            list = notice.objects.filter(idx=idx).values()
+            print(list)
+            notice.objects.filter(idx =idx).update(**dict)
+            return HttpResponseRedirect("/info/notice")
+
+    else:
+        logger = logging.getLogger('')
+        logger.error('로그찍기')
+
+        return render(request, 'info/notice_detail.html')
+
 def diary_list(request):
 
     #diary_list = diary.objects.all()
@@ -392,3 +421,5 @@ def diary_delete(request):
         logger.error('로그찍기')
 
         return HttpResponseRedirect("/info/diary")
+
+
