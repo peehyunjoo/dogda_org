@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.db.models import Count
 from django.utils.dateformat import DateFormat
 
 
@@ -13,6 +14,9 @@ from .models import dogda_vaccination_info, dogda_info, notice, diary, member
 from .forms import Dogda_infoForm,Dogda_vaccination_infoForm, noticeForm, diaryForm, memberForm
 from django.shortcuts import get_object_or_404
 
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 # Create your views here.
 
 #애견 정보
@@ -422,4 +426,42 @@ def diary_delete(request):
 
         return HttpResponseRedirect("/info/diary")
 
+#chart
+def chart(request):
 
+    list = diary.objects.filter(id ='pizzu').order_by('reg_date')
+    #print(list[0].reg_date)
+    df = pd.DataFrame(list)
+    print(df)
+    #print(df)
+    #print(df.filter['reg_date'])
+    #print(df['reg_date'])
+    #print(list[0].reg_date)
+
+    count = diary.objects.filter(id='pizzu').values('reg_date').annotate(Count('reg_date')).order_by('reg_date')
+    print(count)
+    count_df = pd.DataFrame(count)
+    print(count_df['reg_date__count'])
+
+    #print(df['reg_date__count'][0])
+
+    data = []
+    for i in range(len(list)):
+        data.append(str(list[i].reg_date))
+        #reg_date = pd.DateFrame(list[i].reg_date)
+
+    print(data)
+    df = pd.DataFrame(data)
+    print(df)
+
+    count_data = []
+
+    for i in range(len(count_df)):
+        count_data.append(count_df['reg_date__count'][i])
+        # reg_date = pd.DateFrame(list[i].reg_date)
+
+    print(count_data)
+
+    plt.plot(data,count_data)
+    #plt.plot([1,2,3],[10,20,30])
+    plt.show()

@@ -20,4 +20,5 @@ urlpatterns = [
     path('logout/', views.logout),
     path('info_delete/', views.info_delete),
     path('diary_delete/', views.diary_delete),
+    path('chart/', views.chart),
 ]
