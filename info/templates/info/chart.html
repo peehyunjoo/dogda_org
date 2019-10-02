@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+<!-- base html 틀 안에 들어갈 내용 -->
+{% block content %}
+
+{% if request.session.id %}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<div class="container info">
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+</div>
+    <script type="text/javascript">
+    var reg_date = "{{ reg_date }}";
+    var str = reg_date.replace(/&#39;/g,"'");
+    str = str.substring(1);
+    str = str.slice(0,-1);
+    var array = str.split(",");
+$(function () {
+
+			   Highcharts.chart('container', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: '차트'
+    },
+    subtitle: {
+        text: '다이어리 등록 차트'
+    },
+    xAxis: {
+        categories: array ,       <!-- {{ reg_date }} 이렇게 했을시 ['] 가 아스키코드로 읽혀지므로 겉을 ''표 묶어주어야함-->
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: '카운트'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: '날짜',
+        data: {{ count }}
+
+    }]
+});
+
+		    });
+
+    </script>
+
+{% else %}
+    <script>location.href='/info/login';</script>
+{% endif %}
+
+
+{% endblock content %}

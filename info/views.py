@@ -429,6 +429,7 @@ def diary_delete(request):
 #chart
 def chart(request):
 
+
     list = diary.objects.filter(id ='pizzu').order_by('reg_date')
     #print(list[0].reg_date)
     df = pd.DataFrame(list)
@@ -462,6 +463,17 @@ def chart(request):
 
     print(count_data)
 
-    plt.plot(data,count_data)
-    #plt.plot([1,2,3],[10,20,30])
-    plt.show()
+    '''
+        plt.plot(data,count_data)
+        #plt.plot([1,2,3],[10,20,30])
+        plt.show()
+    '''
+
+    chart_list = {
+        "reg_date" : data,
+        "count" : count_data
+    }
+
+    print("리스트",chart_list)
+
+    return render(request, 'info/chart.html' , chart_list)
